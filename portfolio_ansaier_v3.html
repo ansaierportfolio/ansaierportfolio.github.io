@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansaier — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0d1f3c;
+            --navy2: #162847;
+            --gold: #b8922a;
+            --gold-light: #d4a843;
+            --gold-pale: #f0d89a;
+            --cream: #faf8f4;
+            --cream2: #f3f0e8;
+            --white: #ffffff;
+            --text: #1a1a2e;
+            --gray: #7a7a8a;
+            --border: #e8e2d4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 70px;
+            background: rgba(250, 248, 244, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 0 5rem;
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem; font-weight: 600;
+            color: var(--navy); text-decoration: none;
+            letter-spacing: 2px;
+        }
+        .nav-logo span { color: var(--gold); }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a {
+            font-size: 0.78rem; font-weight: 400;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--gray); text-decoration: none;
+            transition: color 0.25s;
+        }
+        .nav-links a:hover { color: var(--navy); }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            background: var(--white);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+            padding-top: 70px;
+        }
+
+        .hero-left {
+            display: flex; flex-direction: column;
+            justify-content: center;
+            padding: 6rem 5rem;
+            position: relative;
+        }
+
+        .hero-left::after {
+            content: '';
+            position: absolute; right: 0; top: 15%; bottom: 15%;
+            width: 1px;
+            background: linear-gradient(180deg, transparent, var(--border), transparent);
+        }
+
+        .hero-tag {
+            display: inline-flex; align-items: center; gap: 0.8rem;
+            margin-bottom: 2rem;
+            opacity: 0; animation: up 0.7s 0.2s forwards;
+        }
+        .hero-tag-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+        .hero-tag span {
+            font-size: 0.72rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            line-height: 1; margin-bottom: 2rem;
+        }
+        .hero-title .t1 {
+            display: block; font-size: clamp(1.2rem, 2.5vw, 2rem);
+            font-weight: 400; letter-spacing: 6px;
+            text-transform: uppercase; color: var(--navy);
+            opacity: 0; animation: up 0.7s 0.35s forwards;
+        }
+        .hero-title .t2 {
+            display: block; font-size: clamp(4rem, 7vw, 6.5rem);
+            font-weight: 300; font-style: italic;
+            color: var(--navy);
+            opacity: 0; animation: up 0.7s 0.5s forwards;
+        }
+
+        .hero-sub {
+            font-size: 0.88rem; font-weight: 300;
+            color: var(--gray); line-height: 2;
+            letter-spacing: 0.5px; max-width: 420px;
+            margin-bottom: 3rem;
+            opacity: 0; animation: up 0.7s 0.65s forwards;
+        }
+
+        .hero-btns {
+            display: flex; gap: 1rem;
+            opacity: 0; animation: up 0.7s 0.8s forwards;
+        }
+
+        .btn {
+            padding: 0.9rem 2.5rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.75rem; font-weight: 500;
+            letter-spacing: 3px; text-transform: uppercase;
+            text-decoration: none; cursor: pointer; border: none;
+            transition: all 0.3s; display: inline-block;
+        }
+        .btn-navy {
+            background: var(--navy); color: var(--white);
+        }
+        .btn-navy:hover {
+            background: var(--navy2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(13,31,60,0.25);
+        }
+        .btn-gold {
+            background: transparent;
+            color: var(--gold);
+            border: 1.5px solid var(--gold);
+        }
+        .btn-gold:hover {
+            background: var(--gold);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .hero-right {
+            background: var(--navy);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            gap: 0; padding: 6rem 4rem;
+            position: relative; overflow: hidden;
+            opacity: 0; animation: fadeIn 1s 0.4s forwards;
+        }
+
+        .hero-right::before {
+            content: '';
+            position: absolute; top: -100px; right: -100px;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184,146,42,0.12), transparent 70%);
+        }
+
+        .hero-stat-item {
+            width: 100%; padding: 2.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            display: flex; align-items: center; gap: 2rem;
+        }
+        .hero-stat-item:last-child { border-bottom: none; }
+
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem; font-weight: 300;
+            color: var(--gold-light); line-height: 1; min-width: 120px;
+        }
+        .stat-num sup { font-size: 1.5rem; }
+
+        .stat-info {}
+        .stat-label {
+            font-size: 0.72rem; letter-spacing: 3px;
+            text-transform: uppercase; color: rgba(255,255,255,0.4);
+            margin-bottom: 0.3rem;
+        }
+        .stat-desc {
+            font-size: 0.9rem; color: rgba(255,255,255,0.7); font-weight: 300;
+        }
+
+        @keyframes up { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+        /* ── SECTION ── */
+        section { padding: 8rem 5rem; }
+
+        .sec-head { margin-bottom: 5rem; }
+
+        .sec-eyebrow {
+            display: flex; align-items: center; gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .sec-eyebrow-line { width: 35px; height: 2px; background: var(--gold); }
+        .sec-eyebrow span {
+            font-size: 0.7rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold); font-weight: 500;
+        }
+
+        .sec-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 300; color: var(--navy); line-height: 1.1;
+        }
+        .sec-title em { font-style: italic; color: var(--gold); }
+
+        /* ── SKILLS ── */
+        #competences { background: var(--cream2); }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .sk-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--border);
+            position: relative; overflow: hidden;
+            transition: all 0.35s;
+        }
+        .sk-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            transform: scaleX(0); transition: transform 0.35s;
+            transform-origin: left;
+        }
+        .sk-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(13,31,60,0.1); border-color: var(--gold-pale); }
+        .sk-card:hover::before { transform: scaleX(1); }
+
+        .sk-icon { font-size: 2.2rem; margin-bottom: 1.2rem; display: block; }
+
+        .sk-num {
+            position: absolute; top: 1.5rem; right: 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem; font-weight: 300;
+            color: rgba(13,31,60,0.06); line-height: 1;
+        }
+
+        .sk-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem; font-weight: 600;
+            color: var(--navy); margin-bottom: 0.5rem;
+        }
+
+        .sk-desc {
+            font-size: 0.8rem; color: var(--gray);
+            line-height: 1.8; margin-bottom: 1.5rem;
+        }
+
+        .sk-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .sk-tag {
+            font-size: 0.65rem; letter-spacing: 1px;
+            padding: 0.3rem 0.8rem;
+            background: var(--cream2);
+            color: var(--navy); font-weight: 500;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        .sk-card:hover .sk-tag {
+            background: rgba(184,146,42,0.08);
+            border-color: var(--gold-pale);
+            color: var(--gold);
+        }
+
+        /* ── FORMATION ── */
+        #diplomes { background: var(--white); }
+
+        .formation-list { display: flex; flex-direction: column; }
+
+        .f-row {
+            display: grid; grid-template-columns: 220px 1fr;
+            gap: 4rem; padding: 3.5rem 0;
+            border-bottom: 1px solid var(--border);
+            align-items: start;
+            opacity: 0; transform: translateY(20px);
+            transition: all 0.6s;
+        }
+        .f-row:first-child { border-top: 1px solid var(--border); }
+        .f-row.visible { opacity: 1; transform: translateY(0); }
+
+        .f-left {}
+        .f-year {
+            font-size: 0.72rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold);
+            font-weight: 500; margin-bottom: 0.5rem;
+        }
+        .f-icon-big { font-size: 2.5rem; }
+
+        .f-right {}
+        .f-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem; font-weight: 400;
+            color: var(--navy); margin-bottom: 0.3rem;
+        }
+        .f-school {
+            font-size: 0.8rem; color: var(--gray);
+            letter-spacing: 1px; margin-bottom: 1.2rem;
+        }
+        .f-desc {
+            font-size: 0.88rem; color: var(--gray);
+            line-height: 2; max-width: 560px;
+        }
+        .f-badge {
+            display: inline-block; margin-top: 1.2rem;
+            font-size: 0.7rem; letter-spacing: 2px;
+            padding: 0.4rem 1.2rem; text-transform: uppercase;
+            border: 1px solid var(--gold);
+            color: var(--gold); font-weight: 500;
+        }
+
+        /* ── PROJETS ── */
+        #projets { background: var(--navy); }
+        #projets .sec-title { color: var(--white); }
+        #projets .sec-eyebrow span { color: var(--gold-light); }
+        #projets .sec-eyebrow-line { background: var(--gold-light); }
+
+        .proj-tabs {
+            display: flex; gap: 0.5rem; margin-bottom: 3.5rem; flex-wrap: wrap;
+        }
+        .p-tab {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.72rem; letter-spacing: 2px;
+            text-transform: uppercase; padding: 0.7rem 1.8rem;
+            background: transparent; border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.5); cursor: pointer;
+            transition: all 0.25s; border-radius: 0;
+        }
+        .p-tab:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
+        .p-tab.active {
+            background: var(--gold); border-color: var(--gold);
+            color: var(--white);
+        }
+
+        .p-content { display: none; }
+        .p-content.active {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .p-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+        .p-card:hover {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(184,146,42,0.4);
+            transform: translateY(-4px);
+        }
+
+        .p-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+        .p-emoji { font-size: 2.5rem; }
+        .p-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem; font-weight: 300;
+            color: rgba(255,255,255,0.06); line-height: 1;
+        }
+
+        .p-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem; font-weight: 400;
+            color: var(--white); margin-bottom: 0.8rem; line-height: 1.3;
+        }
+        .p-desc { font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.9; margin-bottom: 1.5rem; }
+        .p-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .p-tag {
+            font-size: 0.62rem; letter-spacing: 1.5px;
+            padding: 0.25rem 0.8rem; text-transform: uppercase;
+            border: 1px solid rgba(184,146,42,0.3);
+            color: var(--gold-light);
+        }
+        .p-tag-hl { background: rgba(184,146,42,0.15); border-color: rgba(184,146,42,0.6); }
+
+        /* ── CONTACT ── */
+        #contact { background: var(--cream2); }
+
+        .contact-grid {
+            display: grid; grid-template-columns: 1.2fr 1fr;
+            gap: 6rem; align-items: start;
+        }
+
+        .c-left-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 300; color: var(--navy);
+            line-height: 1.15; margin-bottom: 1.5rem;
+        }
+        .c-left-title em { color: var(--gold); font-style: italic; }
+        .c-left-desc {
+            font-size: 0.88rem; color: var(--gray);
+            line-height: 2; margin-bottom: 2.5rem;
+        }
+
+        .c-items { display: flex; flex-direction: column; gap: 0; }
+
+        .c-item {
+            display: flex; align-items: center; gap: 1.5rem;
+            padding: 1.8rem 0;
+            border-bottom: 1px solid var(--border);
+            text-decoration: none; transition: all 0.25s;
+            position: relative;
+        }
+        .c-item:first-child { border-top: 1px solid var(--border); }
+        .c-item:hover { padding-left: 1rem; }
+
+        .c-icon-wrap {
+            width: 48px; height: 48px;
+            background: var(--navy); border-radius: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; flex-shrink: 0;
+            transition: background 0.25s;
+        }
+        .c-item:hover .c-icon-wrap { background: var(--gold); }
+
+        .c-info {}
+        .c-type {
+            font-size: 0.65rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 0.2rem; font-weight: 500;
+        }
+        .c-val {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem; color: var(--navy); font-weight: 400;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--navy);
+            padding: 2.5rem 5rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        footer p { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+        footer span { color: var(--gold-light); }
+
+        /* ── REVEAL ── */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s, transform 0.7s; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1100px) {
+            .skills-grid { grid-template-columns: repeat(2,1fr); }
+            .p-content.active { grid-template-columns: repeat(2,1fr); }
+            .hero { grid-template-columns: 1fr; }
+            .hero-right { min-height: 300px; flex-direction: row; justify-content: space-around; }
+            .hero-stat-item { border-bottom: none; border-right: 1px solid rgba(255,255,255,0.07); padding: 2rem 3rem; }
+            .hero-stat-item:last-child { border-right: none; }
+            .hero-left::after { display: none; }
+        }
+        @media (max-width: 768px) {
+            nav { padding: 0 1.5rem; }
+            .nav-links { display: none; }
+            section { padding: 5rem 1.5rem; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .p-content.active { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .f-row { grid-template-columns: 1fr; gap: 1rem; }
+            footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; }
+            .hero-left { padding: 4rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="#hero" class="nav-logo">PORTFOLIO<span></a>
+    <ul class="nav-links">
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#diplomes">Formation</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+    <div class="hero-left">
+        <div class="hero-tag">
+            <div class="hero-tag-dot"></div>
+            <span>Développeur · Cybersécurité · IoT</span>
+        </div>
+        <div class="hero-title">
+            <span class="t1">AIKEBAIERJIANG</span>
+            <span class="t2">Ansaier</span>
+        </div>
+        <p class="hero-sub">
+            Étudiant BTS CIEL, passionné par la cybersécurité,<br>
+            le développement logiciel et les systèmes embarqués.<br>
+            Classé Top 70 national en CTF — deux éditions.
+        </p>
+        <div class="hero-btns">
+            <a href="#projets" class="btn btn-navy">Mes projets</a>
+            <a href="#contact" class="btn btn-gold">Me contacter</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <div class="hero-stat-item">
+            <div class="stat-num">70<sup>e</sup></div>
+            <div class="stat-info">
+                <div class="stat-label">Classement national</div>
+                <div class="stat-desc">CTF Passe Ton Hack × 2</div>
+            </div>
+        </div>
+        <div class="hero-stat-item">
+            <div class="stat-num">6+</div>
+            <div class="stat-info">
+                <div class="stat-label">Projets réalisés</div>
+                <div class="stat-desc">Tech, Cyber & Embarqué</div>
+            </div>
+        </div>
+        <div class="hero-stat-item">
+            <div class="stat-num">2</div>
+            <div class="stat-info">
+                <div class="stat-label">Ans d'expérience</div>
+                <div class="stat-desc">BTS CIEL 2023–2025</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- COMPÉTENCES -->
+<section id="competences">
+    <div class="sec-head reveal">
+        <div class="sec-eyebrow"><div class="sec-eyebrow-line"></div><span>01 — Compétences</span></div>
+        <h2 class="sec-title">Ce que je sais <em>faire</em></h2>
+    </div>
+    <div class="skills-grid">
+        <div class="sk-card reveal">
+            <div class="sk-num">01</div>
+            <span class="sk-icon">💻</span>
+            <div class="sk-name">Programmation</div>
+            <div class="sk-desc">Développement logiciel du bas niveau au web, maîtrise des algorithmes et structures de données.</div>
+            <div class="sk-tags">
+                <span class="sk-tag">C / C++</span>
+                <span class="sk-tag">Python</span>
+                <span class="sk-tag">HTML/CSS</span>
+                <span class="sk-tag">JavaScript</span>
+                <span class="sk-tag">SQL</span>
+                <span class="sk-tag">Git</span>
+                <span class="sk-tag">Linux</span>
+            </div>
+        </div>
+        <div class="sk-card reveal" style="transition-delay:0.1s">
+            <div class="sk-num">02</div>
+            <span class="sk-icon">🔒</span>
+            <div class="sk-name">Cybersécurité</div>
+            <div class="sk-desc">Sécurité des systèmes et réseaux, tests d'intrusion, cryptographie et analyse de vulnérabilités.</div>
+            <div class="sk-tags">
+                <span class="sk-tag">TCP/IP</span>
+                <span class="sk-tag">Firewall</span>
+                <span class="sk-tag">Cryptographie</span>
+                <span class="sk-tag">Wireshark</span>
+                <span class="sk-tag">CTF</span>
+            </div>
+        </div>
+        <div class="sk-card reveal" style="transition-delay:0.2s">
+            <div class="sk-num">03</div>
+            <span class="sk-icon">⚙️</span>
+            <div class="sk-name">Systèmes Embarqués</div>
+            <div class="sk-desc">Électronique, microcontrôleurs et objets connectés — de la conception au déploiement IoT.</div>
+            <div class="sk-tags">
+                <span class="sk-tag">Arduino</span>
+                <span class="sk-tag">Raspberry Pi</span>
+                <span class="sk-tag">I2C/SPI</span>
+                <span class="sk-tag">IoT</span>
+                <span class="sk-tag">Capteurs</span>
+            </div>
+        </div>
+        <div class="sk-card reveal" style="transition-delay:0.3s">
+            <div class="sk-num">04</div>
+            <span class="sk-icon">🔧</span>
+            <div class="sk-name">Développement Logiciel</div>
+            <div class="sk-desc">Applications, outils techniques et interfaces — du jeu vidéo à l'automatisation système.</div>
+            <div class="sk-tags">
+                <span class="sk-tag">Game Dev</span>
+                <span class="sk-tag">Algorithmes</span>
+                <span class="sk-tag">GUI</span>
+                <span class="sk-tag">CLI</span>
+                <span class="sk-tag">Automation</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FORMATION -->
+<section id="diplomes">
+    <div class="sec-head reveal">
+        <div class="sec-eyebrow"><div class="sec-eyebrow-line"></div><span>02 — Formation</span></div>
+        <h2 class="sec-title">Mon <em>parcours</em></h2>
+    </div>
+    <div class="formation-list">
+        <div class="f-row">
+            <div class="f-left">
+                <div class="f-year">2023 — 2025</div>
+                <div class="f-icon-big">🎓</div>
+            </div>
+            <div class="f-right">
+                <div class="f-title">BTS CIEL</div>
+                <div class="f-school">Lycée Technique — Option Informatique & Réseaux</div>
+                <div class="f-desc">Cybersécurité, Informatique et réseaux, Électronique. Formation approfondie en sécurité, programmation système et systèmes embarqués.</div>
+                <span class="f-badge">⌛ Obtention prévue — Juin 2025</span>
+            </div>
+        </div>
+        <div class="f-row">
+            <div class="f-left">
+                <div class="f-year">2023</div>
+                <div class="f-icon-big">📜</div>
+            </div>
+            <div class="f-right">
+                <div class="f-title">Baccalauréat Professionnel Systèmes Numériques </div>
+                <div class="f-school">Option RISC — Réseaux Informatiques et Systèmes Communicants</div>
+                <div class="f-desc">Installation, configuration et maintenance des réseaux informatiques et systèmes communicants. Câblage, dépannage, protocoles réseau et équipements de communication et Programmation en web.</div>
+            </div>
+        </div>
+        <div class="f-row">
+            <div class="f-left">
+                <div class="f-year">2023 — 2025</div>
+                <div class="f-icon-big">🏅</div>
+            </div>
+            <div class="f-right">
+                <div class="f-title">Projets & Concours</div>
+                <div class="f-school">Réalisations académiques & compétitions nationales</div>
+                <div class="f-desc">Concours Covaciel 2024 · Développement du jeu Pong · Projets systèmes embarqués.</div>
+                <span class="f-badge">✓ Top 70 national CTF × 2 éditions</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+    <div class="sec-head reveal">
+        <div class="sec-eyebrow"><div class="sec-eyebrow-line"></div><span>03 — Projets</span></div>
+        <h2 class="sec-title">Mes <em>réalisations</em></h2>
+    </div>
+    <div class="proj-tabs reveal">
+        <button class="p-tab active" onclick="switchTab('t1',this)">Techniques</button>
+        <button class="p-tab" onclick="switchTab('t2',this)">Cybersécurité</button>
+        <button class="p-tab" onclick="switchTab('t3',this)">Embarqués</button>
+    </div>
+
+    <div class="p-content active" id="t1">
+        <div class="p-card">
+            <div class="p-top"><span class="p-emoji">🎮</span><span class="p-num">01</span></div>
+            <div class="p-name">Pong — Jeu Classique</div>
+            <p class="p-desc">Recréation du jeu Pong avec gestion des collisions, score et interface graphique. Développé en POO.</p>
+            <div class="p-tags"><span class="p-tag">Python</span><span class="p-tag">Pygame</span><span class="p-tag">Game Dev</span></div>
+        </div>
+        <div class="p-card">
+            <div class="p-top"><span class="p-emoji">🎄</span><span class="p-num">02</span></div>
+            <div class="p-name">Calendrier de l'Avent</div>
+            <p class="p-desc">Calendrier interactif avec une case par jour du 1er au 24 décembre. Chaque case révèle un conseil du jour pour les élèves.</p>
+            <div class="p-tags"><span class="p-tag">HTML</span><span class="p-tag">PHP</span><span class="p-tag">Web</span></div>
+        </div>
+        <div class="p-card">
+            <div class="p-top"><span class="p-emoji">🏆</span><span class="p-num">03</span></div>
+            <div class="p-name">Projet Covaciel</div>
+            <p class="p-desc">Concours innovant combinant programmation et systèmes embarqués pour résoudre un défi technique.</p>
+            <div class="p-tags"><span class="p-tag">Innovation</span><span class="p-tag">Électronique</span><span class="p-tag">Programmation</span></div>
+        </div>
+    </div>
+
+    <div class="p-content" id="t2">
+        <div class="p-card">
+            <div class="p-top"><span class="p-emoji">🏅</span><span class="p-num">01</span></div>
+            <div class="p-name">Passe Ton Hack — CTF National</div>
+            <p class="p-desc">2 éditions du concours. Classé 70ème en France sur des milliers de participants. Hacking éthique.</p>
+            <div class="p-tags"><span class="p-tag p-tag-hl">CTF</span><span class="p-tag p-tag-hl">Top 70 × 2</span><span class="p-tag">Hacking Éthique</span></div>
+        </div>
+        <div class="p-card">
+            <div class="p-top"><span class="p-emoji">🔐</span><span class="p-num">02</span></div>
+            <div class="p-name">Analyse Sécurité Réseau</div>
+            <p class="p-desc">Protocoles de sécurité réseau, tests de vulnérabilités et mise en place de protections.</p>
+            <div class="p-tags"><span class="p-tag">Wireshark</span><span class="p-tag">TCP/IP</span><span class="p-tag">Firewall</span></div>
+        </div>
+        <div class="p-card">
+            <div class="p-top"><span class="p-emoji">🛡️</span><span class="p-num">03</span></div>
+            <div class="p-name">Cryptographie & Chiffrement</div>
+            <p class="p-desc">Implémentation d'algorithmes de cryptographie, chiffrement et décryptage. Sécurité des données.</p>
+            <div class="p-tags"><span class="p-tag">Cryptographie</span><span class="p-tag">Python</span><span class="p-tag">Sécurité</span></div>
+        </div>
+    </div>
+
+    <div class="p-content" id="t3">
+        <div class="p-card">
+            <div class="p-top"><span class="p-emoji">🤖</span><span class="p-num">01</span></div>
+            <div class="p-name">Projet Arduino</div>
+            <p class="p-desc">Systèmes embarqués avec Arduino, microcontrôleurs et interfaçage avec capteurs et actionneurs.</p>
+            <div class="p-tags"><span class="p-tag">Arduino</span><span class="p-tag">C / C++</span><span class="p-tag">Électronique</span></div>
+        </div>
+        <div class="p-card">
+            <div class="p-top"><span class="p-emoji">📡</span><span class="p-num">02</span></div>
+            <div class="p-name">Communication IoT</div>
+            <p class="p-desc">Systèmes de communication pour objets connectés, protocoles et collecte de données à distance.</p>
+            <div class="p-tags"><span class="p-tag">IoT</span><span class="p-tag">Raspberry Pi</span><span class="p-tag">Réseaux</span></div>
+        </div>
+        <div class="p-card">
+            <div class="p-top"><span class="p-emoji">⚡</span><span class="p-num">03</span></div>
+            <div class="p-name">Automatisation & Capteurs</div>
+            <p class="p-desc">Automatisation avec capteurs de température, mouvement, luminosité et actions automatisées.</p>
+            <div class="p-tags"><span class="p-tag">Capteurs</span><span class="p-tag">Automation</span><span class="p-tag">Python</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="contact-grid">
+        <div class="reveal">
+            <div class="sec-eyebrow" style="margin-bottom:1rem"><div class="sec-eyebrow-line"></div><span>04 — Contact</span></div>
+            <div class="c-left-title">Travaillons<br><em>ensemble</em></div>
+            <p class="c-left-desc">Disponible pour des opportunités de stage et alternance. N'hésitez pas à me contacter.</p>
+            <a href="mailto:ansaierofficiel@gmail.com" class="btn btn-navy">Envoyer un message</a>
+        </div>
+        <div class="c-items reveal" style="transition-delay:0.2s">
+            <a href="mailto:ansaierofficiel@gmail.com" class="c-item">
+                <div class="c-icon-wrap">📧</div>
+                <div class="c-info">
+                    <div class="c-type">Email</div>
+                    <div class="c-val">ansaierofficiel@gmail.com</div>
+                </div>
+            </a>
+            <a href="https://github.com/ansaier" target="_blank" class="c-item">
+                <div class="c-icon-wrap">💻</div>
+                <div class="c-info">
+                    <div class="c-type">GitHub</div>
+                    <div class="c-val">github.com/ansaier</div>
+                </div>
+            </a>
+            <a href="tel:+33600000000" class="c-item">
+                <div class="c-icon-wrap">📱</div>
+                <div class="c-info">
+                    <div class="c-type">Téléphone</div>
+                    <div class="c-val">06 74 43 02 97</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 — <span>AIKEBAIERJIANG Ansaier</span></p>
+    <p>Développeur <span>·</span> Cybersécurité <span>·</span> Innovation</p>
+</footer>
+
+<script>
+    function switchTab(id, btn) {
+        document.querySelectorAll('.p-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.p-content').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(id).classList.add('active');
+    }
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal, .f-row').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
